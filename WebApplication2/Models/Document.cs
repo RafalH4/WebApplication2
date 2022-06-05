@@ -8,7 +8,7 @@ namespace WebApplication2.Models
 {
     public class Document
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Page> Pages { get; set; }

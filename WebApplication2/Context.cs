@@ -19,6 +19,7 @@ namespace WebApplication2
         {
             modelBuilder.Entity<Document>().ToTable("Document");
             modelBuilder.Entity<Page>().ToTable("Page");
+
         }
 
     }

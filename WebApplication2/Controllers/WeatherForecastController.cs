@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication2.Services;
 
 namespace WebApplication2.Controllers
 {
@@ -11,29 +12,33 @@ namespace WebApplication2.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly IService _service;
 
-        private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IService service)
         {
-            _logger = logger;
+            _service = service;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("first")]
+        public async Task<IActionResult> Get1()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                await _service.AddFirstDoc();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return Ok("");
+        }
+
+        [HttpGet("second")]
+        public async Task<IActionResult> Get2()
+        {
+            await _service.AddSecondDoc();
+            return Ok("");
         }
     }
 }

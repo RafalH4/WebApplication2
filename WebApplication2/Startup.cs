@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication2.Repositories;
+using WebApplication2.Services;
 
 namespace WebApplication2
 {
@@ -35,6 +37,10 @@ namespace WebApplication2
             });
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepositories, Repository>();
+            services.AddScoped<IService, Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
